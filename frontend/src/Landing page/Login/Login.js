@@ -40,9 +40,10 @@ function Login() {
         },
         { withCredentials: true }
       );
-      const { success, message } = data;
+      const { success, message, user } = data;
       if (success) {
         handleSuccess(message);
+        localStorage.setItem("username", user.username);
         setTimeout(() => {
           window.location.href = "http://localhost:3001"; // Assuming dashboard is on 3001
         }, 1000);
