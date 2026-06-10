@@ -13,8 +13,16 @@ const app=express();
 
 app.use(bodyparser.urlencoded({extended:true}));
 app.use(bodyparser.json());
-app.use(cors());
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+app.use(cors({
+  origin: ["http://localhost:3000", "http://localhost:3001"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true,
+}));
 
+const authRoute = require("./Routes/AuthRoute");
+app.use("/", authRoute);
 
 app.get("/",(req,res)=>{
     res.send("Hello World");
